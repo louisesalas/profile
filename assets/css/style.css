@@ -224,11 +224,13 @@ strong {
     padding: 0.5rem 1rem;
     position: relative;
     transition: color var(--transition-fast);
+    text-decoration: none;
 }
 
 .nav-link:hover,
 .nav-link.active {
     color: var(--accent-primary);
+    text-decoration: none;
 }
 
 .nav-link::after {
@@ -336,6 +338,7 @@ strong {
     color: var(--text-secondary);
     max-width: 32rem;
     line-height: 1.8;
+    margin-bottom: 40px;
 }
 
 /* ========================================
@@ -354,6 +357,7 @@ strong {
     transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
+    margin-bottom: 20px;
 }
 
 .tech-card::before {
@@ -499,6 +503,9 @@ strong {
    ======================================== */
 .about-section {
     padding: var(--section-padding);
+}
+.about-text {
+    margin-bottom: 40px;
 }
 
 .about-text p {
