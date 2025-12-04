@@ -351,5 +351,149 @@ document.addEventListener('DOMContentLoaded', function() {
     if (heroImage) {
         setInterval(flipHeroImage, 4000);
     }
+
+    // ========================================
+    // Contact Form Handling
+    // ========================================
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        const formInputs = contactForm.querySelectorAll('.form-input');
+        const submitBtn = contactForm.querySelector('.form-submit');
+        
+        // Add focus/blur animations
+        formInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+                // Validate on blur
+                validateInput(this);
+            });
+        });
+        
+        // Input validation function
+        function validateInput(input) {
+            const value = input.value.trim();
+            
+            if (input.hasAttribute('required') && !value) {
+                input.classList.add('error');
+                input.classList.remove('success');
+                return false;
+            }
+            
+            if (input.type === 'email' && value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    input.classList.add('error');
+                    input.classList.remove('success');
+                    return false;
+                }
+            }
+            
+            input.classList.remove('error');
+            if (value) {
+                input.classList.add('success');
+            }
+            return true;
+        }
+        
+        // Form submission
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validate all inputs
+            let isValid = true;
+            formInputs.forEach(input => {
+                if (!validateInput(input)) {
+                    isValid = false;
+                }
+            });
+            
+            if (!isValid) {
+                showFormMessage('Please fill in all fields correctly.', 'error');
+                return;
+            }
+            
+            // Disable submit button and show loading state
+            submitBtn.disabled = true;
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
+            
+            try {
+                const formData = new FormData(contactForm);
+                const response = await fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(formData).toString()
+                });
+                
+                if (response.ok) {
+                    showFormMessage('Thank you! Your message has been sent successfully.', 'success');
+                    contactForm.reset();
+                    formInputs.forEach(input => {
+                        input.classList.remove('success', 'error');
+                    });
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                showFormMessage('Oops! Something went wrong. Please try again or email directly.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+        
+        // Show form message
+        function showFormMessage(message, type) {
+            // Remove existing message if any
+            const existingMessage = contactForm.querySelector('.form-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Create and insert message element
+            const messageEl = document.createElement('div');
+            messageEl.className = `form-message ${type} show`;
+            messageEl.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
+            contactForm.insertBefore(messageEl, contactForm.firstChild);
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                messageEl.classList.remove('show');
+                setTimeout(() => messageEl.remove(), 300);
+            }, 5000);
+        }
+        
+        // Add GSAP animation for the contact form
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.set('.contact-form-wrapper', { opacity: 0, y: 40 });
+            gsap.set('.contact-divider', { opacity: 0, scaleX: 0 });
+            
+            ScrollTrigger.create({
+                trigger: '.contact-form-wrapper',
+                start: 'top 85%',
+                onEnter: () => {
+                    gsap.to('.contact-form-wrapper', {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: 'power3.out'
+                    });
+                    gsap.to('.contact-divider', {
+                        opacity: 1,
+                        scaleX: 1,
+                        duration: 0.6,
+                        delay: 0.3,
+                        ease: 'power3.out'
+                    });
+                },
+                once: true
+            });
+        }
+    }
 });
 
