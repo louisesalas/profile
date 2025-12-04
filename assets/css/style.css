@@ -2,18 +2,19 @@
    CSS Variables & Root Styles
    ======================================== */
 :root {
-    /* Color Palette - Deep Space Theme */
-    --bg-primary: #0a0a0f;
-    --bg-secondary: #12121a;
-    --bg-tertiary: #1a1a24;
-    --bg-card: #16161f;
-    --bg-card-hover: #1e1e2a;
+    /* Color Palette - Nuxt Inspired Theme */
+    --bg-primary: #020420;
+    --bg-secondary: #010409;
+    --bg-tertiary: #0d1117;
+    --bg-card: rgba(13, 17, 23, 0.8);
+    --bg-card-hover: rgba(30, 41, 59, 0.6);
     
-    /* Accent Colors */
-    --accent-primary: #c0aede;
-    --accent-secondary: #a78bfa;
-    --accent-tertiary: #8b5cf6;
-    --accent-glow: rgba(192, 174, 222, 0.2);
+    /* Accent Colors - Nuxt Green */
+    --accent-primary: #00dc82;
+    --accent-secondary: #00c974;
+    --accent-tertiary: #00b368;
+    --accent-glow: rgba(0, 220, 130, 0.15);
+    --accent-glow-strong: rgba(0, 220, 130, 0.25);
     
     /* Tech Stack Colors */
     --laravel-red: #ff2d20;
@@ -22,13 +23,13 @@
     --nuxt-green: #00dc82;
     
     /* Text Colors */
-    --text-primary: #f5f5f7;
+    --text-primary: #ffffff;
     --text-secondary: #a1a1aa;
-    --text-muted: #71717a;
+    --text-muted: #6b7280;
     
     /* Borders */
-    --border-color: rgba(255, 255, 255, 0.08);
-    --border-color-hover: rgba(255, 255, 255, 0.15);
+    --border-color: rgba(255, 255, 255, 0.06);
+    --border-color-hover: rgba(0, 220, 130, 0.3);
     
     /* Typography */
     --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -129,7 +130,7 @@ strong {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(10, 10, 15, 0.85);
+    background: rgba(2, 4, 32, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
@@ -220,7 +221,7 @@ strong {
 .nav-link {
     font-size: 1.25rem;
     font-weight: 500;
-    color: var(--text-secondary);
+    color: #fff;
     padding: 0.5rem 1rem;
     position: relative;
     transition: color var(--transition-fast);
@@ -268,8 +269,9 @@ strong {
     right: 0;
     bottom: 0;
     background: 
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(167, 139, 250, 0.15), transparent),
-        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.08), transparent);
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 220, 130, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(0, 180, 100, 0.06), transparent),
+        radial-gradient(ellipse 50% 30% at 20% 80%, rgba(0, 220, 130, 0.04), transparent);
     pointer-events: none;
 }
 
@@ -293,7 +295,7 @@ strong {
     background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
     box-shadow: 
         0 0 30px var(--accent-glow),
-        0 0 60px rgba(139, 92, 246, 0.1);
+        0 0 60px rgba(0, 220, 130, 0.1);
     margin: 0 auto;
     perspective: 1000px;
 }
@@ -610,7 +612,7 @@ strong {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(10, 10, 15, 0.8);
+    background: rgba(2, 4, 32, 0.85);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -908,8 +910,9 @@ strong {
 }
 
 .contact-btn.primary {
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
+    background: var(--accent-primary);
     color: var(--bg-primary);
+    font-weight: 600;
 }
 
 .contact-btn.primary:hover {
@@ -1250,7 +1253,7 @@ section[id] {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--bg-tertiary);
+    background: rgba(0, 220, 130, 0.3);
     border-radius: 4px;
 }
 
